@@ -83,6 +83,15 @@ module.exports = class WireGuard {
 PrivateKey = ${config.server.privateKey}
 Address = ${config.server.address}/24
 ListenPort = 51820`;
+    if (config.server.postUp) {
+      result +=`
+PostUp = ${config.server.postUp}`
+    }
+
+    if (config.server.postDown) {
+      result +=`
+PostDown = ${config.server.postDown}`
+    }
 
     for (const [clientId, client] of Object.entries(config.clients)) {
       if (!client.enabled) continue;
